@@ -13,13 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @MappedTypes(UserInfo.class)
 @MapperScan("florie.photofoot.mapper")
 @EnableWebSecurity
 @Configuration
-public class securityConfig  extends WebSecurityConfigurerAdapter {
+public class securityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
