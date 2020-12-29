@@ -20,8 +20,6 @@ public class AccountController {
     @RequestMapping("/asd")
     public ModelAndView asd() {
         ModelAndView mv=new ModelAndView("login_register");
-        List<UserInfo> lui = uiMapper.findall();
-//        mv.addObject("user", uiMapper.findall());
         return mv;
     }
 }
