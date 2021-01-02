@@ -16,3 +16,16 @@ body {
     background-color: #f2dede;
     border-color: #ebccd1;
 }
+
+.fieldinputerror {
+    border: solid 1px #FF0000 !important;
+}
+
+.fielderror {
+    color: #FF0000;
+    margin: 5px 0px 0px;
+}
+
+.green {
+    color: #66CC33;
+}

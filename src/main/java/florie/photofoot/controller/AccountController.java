@@ -1,10 +1,9 @@
 package florie.photofoot.controller;
 import florie.photofoot.mapper.UserInfoMapper;
+import florie.photofoot.model.NameValuePair;
 import florie.photofoot.model.UserInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -25,5 +24,48 @@ public class AccountController {
             mv.addObject("error", "Invalid username and password!");
         }
         return mv;
+    }
+
+    @PostMapping(path = "/CheckUsernameExist")
+    @ResponseBody
+    public NameValuePair CheckUsernameExist(@RequestParam()String username){
+        NameValuePair ret = new NameValuePair();
+        try{
+            Integer existinguser = uiMapper.checkUsernameExist(username);
+            ret.setName("success");
+            if(existinguser > 0){
+                ret.setValue("already exist");
+            }else{
+                ret.setValue("does not exist");
+            }
+        }catch (Exception ex){
+            ret.setName("fail");
+            ret.setValue(ex.getMessage() + "<br />" + ex.getStackTrace());
+        }
+        return ret;
+    }
+
+    @PostMapping(path = "/AddUser")
+    @ResponseBody
+    public NameValuePair AddUser(@RequestParam()String username, String password, String firstname,
+                                 String lastname, String location, String description, String occupation){
+        NameValuePair ret = new NameValuePair();
+        try{
+            UserInfo ui =new UserInfo();
+            ui.setUsername(username);
+            ui.setPassword(password);
+            ui.setFirstName(firstname);
+            ui.setLastName(lastname);
+            ui.setLocation(location);
+            ui.setDescription(description);
+            ui.setOccupation(occupation);
+            uiMapper.insert(ui);
+
+            ret.setName("success");
+        }catch (Exception ex){
+            ret.setName("fail");
+            ret.setValue(ex.getMessage() + "<br />" + ex.getStackTrace());
+        }
+        return ret;
     }
 }

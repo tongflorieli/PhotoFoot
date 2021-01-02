@@ -15,6 +15,34 @@ public class UserInfo {
     private String FirstName;
     private String LastName;
     private String Password;
+    private String Location;
+    private String Description;
+    private String Occupation;
+    private Integer Id;
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public void setOccupation(String occupation) {
+        Occupation = occupation;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public String getOccupation() {
+        return Occupation;
+    }
 
     public void setPassword(String password) {
         Password = password;
