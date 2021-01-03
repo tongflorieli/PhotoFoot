@@ -1,18 +1,31 @@
 package florie.photofoot.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Photo {
+    public Photo() {
+        IsFav = false;
+    }
+
     private Integer Id;
-    private Date Created;
+    private Timestamp Created;
     private byte[] Data;
     private String Uploaded_By_Username;
+    private Boolean IsFav;
+
+    public Boolean getIsFav() {
+        return IsFav;
+    }
+
+    public void setIsFav(Boolean isFav) {
+        IsFav = isFav;
+    }
 
     public Integer getId() {
         return Id;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return Created;
     }
 
@@ -20,7 +33,7 @@ public class Photo {
         return Data;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         Created = created;
     }
 

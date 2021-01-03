@@ -4,7 +4,11 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#myprofile", function () {
-        $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true");
+        $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true", function(){
+            $(".comments").each(function(){
+                $(this).load("/PhotoFoot/Comments?photoid="+$(this).data("photoid"));
+            });
+        });
     });
 
     $(document).on("click", "#upload", function () {
@@ -18,7 +22,42 @@ $(document).ready(function () {
         }
         UploadImg();
     });
+
+    $(document).on("keypress", ".newcomment", function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode === 13){
+			AddComment($(this));
+		}
+    });
 });
+
+function AddComment(thisele){
+	var comment = thisele.val();
+	var photoid = thisele.data("photoid");
+	if(comment == ""){
+		alert("Please enter a comment!");
+		return;
+	}
+	$.ajax({
+        url: '/PhotoFoot/AddComment',
+        data: {
+            'comment': comment,
+            "photoid": photoid
+        },
+        type: "post",
+        cache: false,
+        success: function(data) {
+            if(data.Name == "success"){
+				thisele.val("");
+				$("#comments_"+thisele.data("photoid")).load("/PhotoFoot/Comments?photoid="+thisele.data("photoid"));
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("Error(s) encountered while adding comment." + thrownError.toString());
+            isvalid = false;
+        }
+    });
+}
 
 function UploadImg(){
 	var formData = new FormData();

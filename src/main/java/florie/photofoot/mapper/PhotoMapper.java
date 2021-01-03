@@ -8,10 +8,10 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface PhotoMapper {
-    @Insert("insert into Photo(Created, Data, Uploaded_By_Username) values(#{Created},#{Data},#{Uploaded_By_Username})")
+    @Insert("insert into Photo(Created, Data, Uploaded_By_Username, isFav) values(#{Created},#{Data},#{Uploaded_By_Username},#{isFav})")
     void insert(Photo photo);
 
-    @Select("SELECT Id, Created, Uploaded_By_Username from Photo WHERE Uploaded_By_Username = #{username}")
+    @Select("SELECT Id, Created, Uploaded_By_Username, isFav from Photo WHERE Uploaded_By_Username = #{username}")
     List<Photo> selectByUsernameWithoutData(String username);
 
     @Select("SELECT TOP 1 * from Photo WHERE Id = #{Id}")
