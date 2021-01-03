@@ -3,6 +3,10 @@ $(document).ready(function () {
         $("#upImage").click();
     });
 
+    $(document).on("click", "#myprofile", function () {
+        $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true");
+    });
+
     $(document).on("click", "#upload", function () {
 	    if(document.getElementById("upImage").files[0] == undefined){
 	        alert("Please select an image fist.");
@@ -20,7 +24,7 @@ function UploadImg(){
 	var formData = new FormData();
 	formData.append("imgfile", document.getElementById("upImage").files[0]);
 	$.ajax({
-        url: '/Home/UploadImage',
+        url: '/PhotoFoot/UploadImage',
         data: formData,
         enctype: 'multipart/form-data',
         type: "post",

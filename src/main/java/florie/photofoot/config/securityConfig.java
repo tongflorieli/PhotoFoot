@@ -32,11 +32,11 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/Home/**").authenticated()
+                .antMatchers("/PhotoFoot/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/Account/Login").failureUrl("/Account/Login?error").defaultSuccessUrl("/Home/Activities", true).permitAll();
+                .loginPage("/Account/Login").failureUrl("/Account/Login?error").defaultSuccessUrl("/PhotoFoot/Home", true).permitAll();
     }
 
     private PasswordEncoder getPasswordEncoder() {
