@@ -34,7 +34,9 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/Home/**").authenticated()
                 .anyRequest().permitAll()
-                .and().formLogin().loginPage("/Account/Login").failureUrl("/Account/Login?error").permitAll();
+                .and()
+                .formLogin()
+                .loginPage("/Account/Login").failureUrl("/Account/Login?error").defaultSuccessUrl("/Home/Activities", true).permitAll();
     }
 
     private PasswordEncoder getPasswordEncoder() {
