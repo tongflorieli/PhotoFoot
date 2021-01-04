@@ -1,11 +1,11 @@
 <#list lphotos as photo>
-    <div>
+    <div class="divphoto">
         <div id="divimg">
-            <img id="imgPhoto" src="/PhotoFoot/GetImage?Id=${photo.getId()}" alt="photo" title="photo">
+            <img class="imgPhoto" src="/PhotoFoot/GetImage?Id=${photo.getId()}" alt="photo" title="photo">
         </div>
         <div class="comments" id="comments_${photo.getId()}" data-photoid="${photo.getId()}"></div>
-        <div class="field">
-            <input type="text" class="fieldinput newcomment" data-photoid="${photo.getId()}" placeholder="Comment">
+        <div class="divcomment">
+            <input type="text" class="fieldinput newcomment" data-photoid="${photo.getId()}" placeholder="Comment on this photo!">
         </div>
     </div>
 </#list>
