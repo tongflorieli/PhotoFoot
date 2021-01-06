@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div id="header">
+		<button type="button" id="logout">LOGOUT</button>
 		<button type="button" id="myprofile">MY PHOTOS</button>
 		<input id="upImage" type="file" style="display:none;"/>
 		<button type="button" id="choosefile">CHOOSE FILE</button>

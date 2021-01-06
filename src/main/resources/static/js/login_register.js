@@ -43,6 +43,37 @@ function RegisterUser(){
 			if(isexist.Value == "already exist"){
 				showError("register_username", "Username already exists!");
 				isvalid = false;
+			}else{
+			    //add user
+			    if(isvalid){
+			        $.ajax({
+			            url: '/Account/AddUser',
+			            data: {
+			                'username': username,
+			                "password": psw1,
+			                "firstname": firstname,
+			                "lastname": lastname,
+			                "location": location,
+			                "description": description,
+			                "occupation": occupation
+			            },
+			            type: "post",
+			            cache: false,
+			            success: function(data) {
+			                if(data.Name == "success"){
+			                    clearFields();
+								$("#msg").html("<p class='green'>User Registered!</p>");
+			                    setTimeout(function () {
+			                        $("#msg").html("");
+			                    }, 1500);
+			                }
+			            },
+			            error: function (xhr, ajaxOptions, thrownError) {
+			                alert("Error(s) encountered while checking username exist" + thrownError.toString());
+			                isvalid = false;
+			            }
+			        });
+			    }
 			}
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -50,36 +81,6 @@ function RegisterUser(){
             isvalid = false;
         }
     });
-    //add user
-    if(isvalid){
-        $.ajax({
-            url: '/Account/AddUser',
-            data: {
-                'username': username,
-                "password": psw1,
-                "firstname": firstname,
-                "lastname": lastname,
-                "location": location,
-                "description": description,
-                "occupation": occupation
-            },
-            type: "post",
-            cache: false,
-            success: function(data) {
-    			if(data.Name == "success"){
-    			    clearFields();
-					$("#msg").html("<p class='green'>App saved!</p>");
-                    setTimeout(function () {
-                        $("#msg").html("");
-                    }, 1500);
-    			}
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert("Error(s) encountered while checking username exist" + thrownError.toString());
-                isvalid = false;
-            }
-        });
-    }
 }
 
 function showError(element, message) {

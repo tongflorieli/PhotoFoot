@@ -1,21 +1,26 @@
 package florie.photofoot.controller;
+import florie.photofoot.mapper.ActivityMapper;
 import florie.photofoot.mapper.UserInfoMapper;
+import florie.photofoot.model.Activity;
 import florie.photofoot.model.NameValuePair;
 import florie.photofoot.model.UserInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
 @RequestMapping("/Account")
 public class AccountController {
-    public AccountController(UserInfoMapper uiMapper) {
+    public AccountController(UserInfoMapper uiMapper, ActivityMapper aMapper) {
+        this.aMapper = aMapper;
         this.uiMapper = uiMapper;
     }
 
     private UserInfoMapper uiMapper;
+    private ActivityMapper aMapper;
 
     @RequestMapping("/Login")
     public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
@@ -60,6 +65,13 @@ public class AccountController {
             ui.setDescription(description);
             ui.setOccupation(occupation);
             uiMapper.insert(ui);
+
+            //Activity
+            Activity activity = new Activity();
+            activity.setUsername(username);
+            activity.setModified(new Timestamp(System.currentTimeMillis()));
+            activity.setType("User Registered");
+            aMapper.insert(activity);
 
             ret.setName("success");
         }catch (Exception ex){

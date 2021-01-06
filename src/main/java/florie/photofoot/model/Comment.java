@@ -9,6 +9,10 @@ public class Comment {
     private String By_Username;
     private UserInfo UserInfo;
 
+    public void setId(Integer id) {
+        Id = id;
+    }
+
     public void setUserInfo(UserInfo ui) {
         this.UserInfo = ui;
     }

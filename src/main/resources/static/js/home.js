@@ -3,6 +3,10 @@ $(document).ready(function () {
         $("#upImage").click();
     });
 
+    $(document).on("click", "#logout", function () {
+        window.location.href = "/logout";
+    });
+
     $(document).on("click", "#myprofile", function () {
         $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true", function(){
             $(".comments").each(function(){
@@ -12,6 +16,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#upload", function () {
+        $(this).prop("disable", true);
 	    if(document.getElementById("upImage").files[0] == undefined){
 	        alert("Please select an image fist.");
 	        return;
@@ -71,6 +76,7 @@ function UploadImg(){
         contentType: false,
         cache: false,
         success: function(data) {
+            $("#upload").prop("disable", false);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("Error(s) encountered while uploading image." + thrownError.toString());

@@ -1,8 +1,10 @@
 package florie.photofoot.controller;
 
+import florie.photofoot.mapper.ActivityMapper;
 import florie.photofoot.mapper.CommentMapper;
 import florie.photofoot.mapper.PhotoMapper;
 import florie.photofoot.mapper.UserInfoMapper;
+import florie.photofoot.model.Activity;
 import florie.photofoot.model.Comment;
 import florie.photofoot.model.NameValuePair;
 import florie.photofoot.model.Photo;
@@ -14,19 +16,22 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
 @RequestMapping("/PhotoFoot")
 public class HomeController {
-    public HomeController(PhotoMapper photoMapper, CommentMapper commentmapper, UserInfoMapper uiMapper) {
+    public HomeController(PhotoMapper photoMapper, CommentMapper commentmapper, UserInfoMapper uiMapper, ActivityMapper aMapper) {
         this.commentMapper = commentmapper;
         this.photoMapper = photoMapper;
         this.uiMapper = uiMapper;
+        this.aMapper = aMapper;
     }
     private PhotoMapper photoMapper;
     private CommentMapper commentMapper;
     private UserInfoMapper uiMapper;
+    private ActivityMapper aMapper;
 
     @RequestMapping("/Home")
     public ModelAndView Activities() {
@@ -44,6 +49,15 @@ public class HomeController {
             photo.setUploaded_By_Username(principal.getName());
             photo.setCreated(new java.sql.Timestamp(System.currentTimeMillis()));
             photoMapper.insert(photo);
+
+            //track activity
+            Activity activity = new Activity();
+            activity.setUsername(principal.getName());
+            activity.setModified(new Timestamp(System.currentTimeMillis()));
+            activity.setType("Photo Upload");
+            activity.setRelated_Id(photo.getId());
+            aMapper.insert(activity);
+
             ret.setName("success");
         }catch (Exception ex){
             ret.setName("fail");
@@ -86,6 +100,14 @@ public class HomeController {
             objcomment.setCreated(new java.sql.Timestamp(System.currentTimeMillis()));
             objcomment.setBy_Username(principal.getName());
             commentMapper.insert(objcomment);
+
+            //track activity
+            Activity activity = new Activity();
+            activity.setUsername(principal.getName());
+            activity.setModified(new java.sql.Timestamp(System.currentTimeMillis()));
+            activity.setType("Comment");
+            activity.setRelated_Id(objcomment.getId());
+            aMapper.insert(activity);
             ret.setName("success");
         }catch (Exception ex){
             ret.setName("fail");
