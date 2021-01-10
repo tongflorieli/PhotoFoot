@@ -63,3 +63,31 @@ input[type="text"]
     margin-right: 5px;
     cursor: pointer;
 }
+
+.activityicon{
+	max-height:50px;
+	max-width:50px;
+}
+
+.activityleft{
+	float:left;
+	height:50px;
+	width:50px;
+}
+
+.activityright{
+	float:left;
+    padding-left: 15px;
+    text-align: left;
+}
+
+.divactivity{
+	width:100%;
+	padding:5px;
+	height:50px;
+}
+
+.activitydetails{
+	padding:2px;
+    font-weight: 550;
+}

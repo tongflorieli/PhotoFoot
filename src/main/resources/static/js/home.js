@@ -7,6 +7,10 @@ $(document).ready(function () {
         window.location.href = "/logout";
     });
 
+    $(document).on("click", "#btnactivities", function () {
+        $("#divcontent").load("/PhotoFoot/Activities");
+    });
+
     $(document).on("click", "#myprofile", function () {
         $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true", function(){
             $(".comments").each(function(){

@@ -12,6 +12,27 @@ public class Photo {
     private byte[] Data;
     private String Uploaded_By_Username;
     private Boolean IsFav;
+    private UserInfo UserInfo;
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
+    public void setFav(Boolean fav) {
+        IsFav = fav;
+    }
+
+    public void setUserInfo(florie.photofoot.model.UserInfo userInfo) {
+        UserInfo = userInfo;
+    }
+
+    public Boolean getFav() {
+        return IsFav;
+    }
+
+    public florie.photofoot.model.UserInfo getUserInfo() {
+        return UserInfo;
+    }
 
     public Boolean getIsFav() {
         return IsFav;

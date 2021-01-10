@@ -14,4 +14,7 @@ public interface CommentMapper {
 
     @Select("select * from Comment where PhotoId = #{photoid} Order by Created")
     List<Comment> getCommentsByPhotoId(Integer photoid);
+
+    @Select("select TOP 1 * from Comment where Id = #{id}")
+    Comment getCommentsById(Integer id);
 }

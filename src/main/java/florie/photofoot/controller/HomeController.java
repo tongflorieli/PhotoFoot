@@ -34,7 +34,7 @@ public class HomeController {
     private ActivityMapper aMapper;
 
     @RequestMapping("/Home")
-    public ModelAndView Activities() {
+    public ModelAndView Home() {
         ModelAndView mv=new ModelAndView("home");
         return mv;
     }
@@ -74,6 +74,33 @@ public class HomeController {
         List<Photo> lphotos = photoMapper.selectByUsernameWithoutData(username);
         ModelAndView mv=new ModelAndView("photos");
         mv.addObject("lphotos", lphotos);
+        return mv;
+    }
+
+    @RequestMapping("/Activities")
+    public ModelAndView Activities() {
+        List<Activity> lactivities = aMapper.select20();
+        lactivities.forEach((activity) -> {
+            switch (activity.getType()){
+                case "Comment":
+                    //activity comment
+                    activity.setComment(commentMapper.getCommentsById(activity.getRelated_Id()));
+                    activity.getComment().setUserInfo(uiMapper.findByUsername(activity.getUsername()));
+                    //activity photo
+                    activity.setPhoto(photoMapper.getPhotoById(activity.getComment().getPhotoId()));
+                    activity.getPhoto().setUserInfo(uiMapper.findByUsername(activity.getPhoto().getUploaded_By_Username()));
+                    break;
+                case "Photo Upload":
+                    activity.setPhoto(photoMapper.getPhotoById(activity.getRelated_Id()));
+                    activity.getPhoto().setUserInfo(uiMapper.findByUsername(activity.getUsername()));
+                    break;
+                default://login logout register
+                    activity.setUi(uiMapper.findByUsername(activity.getUsername()));
+                    break;
+            }
+        });
+        ModelAndView mv=new ModelAndView("activities");
+        mv.addObject("lactivities", lactivities);
         return mv;
     }
 

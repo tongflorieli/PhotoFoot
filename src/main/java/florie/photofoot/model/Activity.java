@@ -9,6 +9,38 @@ public class Activity {
     private String Type;
     private Integer Related_Id;
 
+    private UserInfo ui;
+    private Photo photo;
+    private Comment comment;
+
+    public UserInfo getUi() {
+        return ui;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
+    public void setUi(UserInfo ui) {
+        this.ui = ui;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     public Integer getId() {
         return Id;
     }
