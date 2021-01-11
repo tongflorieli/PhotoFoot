@@ -13,4 +13,8 @@ public interface ActivityMapper {
 
     @Select("SELECT TOP 20 * from Activity Order By Id DESC")
     List<Activity> select20();
+
+    //get recent activity of last 4 hours
+    @Select("SELECT TOP 1 * from Activity where Username = #{username} and Modified >= DATEADD(hh, -4, GETDATE()) Order By Id DESC")
+    Activity getRecentActivityByUsername(String username);
 }

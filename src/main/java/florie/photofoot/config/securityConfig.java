@@ -65,8 +65,10 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
                         activity.setModified(new Timestamp(System.currentTimeMillis()));
                         activity.setType("Login");
                         aMapper.insert(activity);
+
+                        httpServletResponse.sendRedirect("/PhotoFoot/Home");
                     }
-                }).failureUrl("/Account/Login?error").defaultSuccessUrl("/PhotoFoot/Home", true);
+                }).failureUrl("/Account/Login?error");
         http.logout().logoutSuccessHandler(new LogoutSuccessHandler(){
             @Override
             public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {

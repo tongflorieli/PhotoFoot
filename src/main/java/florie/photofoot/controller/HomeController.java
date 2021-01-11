@@ -4,10 +4,7 @@ import florie.photofoot.mapper.ActivityMapper;
 import florie.photofoot.mapper.CommentMapper;
 import florie.photofoot.mapper.PhotoMapper;
 import florie.photofoot.mapper.UserInfoMapper;
-import florie.photofoot.model.Activity;
-import florie.photofoot.model.Comment;
-import florie.photofoot.model.NameValuePair;
-import florie.photofoot.model.Photo;
+import florie.photofoot.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,6 +98,29 @@ public class HomeController {
         });
         ModelAndView mv=new ModelAndView("activities");
         mv.addObject("lactivities", lactivities);
+        return mv;
+    }
+
+    @RequestMapping("/UAList")
+    public ModelAndView UAList(Principal principal){
+        List<UserInfo> lua = uiMapper.getAll();
+        UserInfo curua = uiMapper.findByUsername(principal.getName());
+        lua.remove(curua);
+        Activity curactivity = aMapper.getRecentActivityByUsername(curua.getUsername());
+        if(curactivity!= null){
+            curactivity.setUi(uiMapper.findByUsername(curactivity.getUsername()));
+            curua.setActivity(curactivity);
+        }
+        lua.forEach((ui)->{
+            Activity activity = aMapper.getRecentActivityByUsername(ui.getUsername());
+            if(activity!= null){
+                activity.setUi(uiMapper.findByUsername(activity.getUsername()));
+                ui.setActivity(activity);
+            }
+        });
+        ModelAndView mv=new ModelAndView("ualist");
+        mv.addObject("lua", lua);
+        mv.addObject("curua",curua);
         return mv;
     }
 

@@ -1,4 +1,5 @@
 <#setting datetime_format="MMM dd yyyy hh:mm a">
+<button type="button" class="bluebutton" id="refreshactvity">REFRESH</button>
 <#list lactivities as activity>
     <div class="divactivity">
 		<#switch activity.getType()>

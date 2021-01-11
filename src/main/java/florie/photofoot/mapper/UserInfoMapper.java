@@ -10,6 +10,9 @@ public interface UserInfoMapper {
     @Select("SELECT TOP 1 * from UserInfo WHERE Username = #{username}")
     UserInfo findByUsername(String username);
 
+    @Select("SELECT * from UserInfo")
+    List<UserInfo> getAll();
+
     @Select("SELECT count(*) from UserInfo WHERE Username = #{username}")
     Integer checkUsernameExist(String username);
 

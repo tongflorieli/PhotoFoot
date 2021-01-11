@@ -64,15 +64,25 @@ input[type="text"]
     cursor: pointer;
 }
 
+.bluebutton{
+	background-color: #00239CFF;
+	color:white;
+	padding:7px;
+	font-size:18px;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
 .activityicon{
-	max-height:50px;
-	max-width:50px;
+	max-height:60px;
+	max-width:60px;
 }
 
 .activityleft{
 	float:left;
-	height:50px;
-	width:50px;
+	height:60px;
+	width:60px;
 }
 
 .activityright{
@@ -82,12 +92,79 @@ input[type="text"]
 }
 
 .divactivity{
-	width:100%;
-	padding:5px;
+	padding:10px;
 	height:50px;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 
 .activitydetails{
 	padding:2px;
     font-weight: 550;
+    font-size: 20px;
+}
+
+.ulicon{
+	max-height:30px;
+	max-width:30px;
+}
+
+.ulleft{
+	float:left;
+    height:30px;
+    width:30px;
+}
+
+.ulright{
+	float:left;
+    padding-left: 15px;
+    text-align: left;
+}
+
+.divUser{
+	height:30px;
+	padding:20px;
+	border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+#divul{
+	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+	padding:0px 10px;
+	width:25%;
+	float:left;
+	margin:10px;
+}
+
+#divcontent{
+	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+	padding:20px;
+	width:65%;float:left;
+	margin:10px;
+}
+
+.ulname{
+	padding:2px;
+    font-weight: 550;
+}
+
+#curusername{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#divcuruser{
+	padding: 20px;
+}
+
+.myicon{
+	margin-bottom: -8px;
+	max-height:30px;
+	max-width:30px;
+}
+
+#divmybuttons{
+	padding: 10px;
+}
+
+.myactivity{
+	font-weight:600;
 }

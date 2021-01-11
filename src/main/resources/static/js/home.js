@@ -1,4 +1,9 @@
 $(document).ready(function () {
+	$("#divul").load("/PhotoFoot/UAList");
+	var updateULinterval = setInterval(function() {
+        $("#divul").load("/PhotoFoot/UAList");
+    }, 3000);
+
     $(document).on("click", "#choosefile", function () {
         $("#upImage").click();
     });
@@ -7,7 +12,7 @@ $(document).ready(function () {
         window.location.href = "/logout";
     });
 
-    $(document).on("click", "#btnactivities", function () {
+    $(document).on("click", "#btnactivities, #refreshactvity", function () {
         $("#divcontent").load("/PhotoFoot/Activities");
     });
 
@@ -59,6 +64,7 @@ function AddComment(thisele){
             if(data.Name == "success"){
 				thisele.val("");
 				$("#comments_"+thisele.data("photoid")).load("/PhotoFoot/Comments?photoid="+thisele.data("photoid"));
+				$("#divul").load("/PhotoFoot/UAList");
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -81,6 +87,7 @@ function UploadImg(){
         cache: false,
         success: function(data) {
             $("#upload").prop("disable", false);
+            $("#divul").load("/PhotoFoot/UAList");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("Error(s) encountered while uploading image." + thrownError.toString());

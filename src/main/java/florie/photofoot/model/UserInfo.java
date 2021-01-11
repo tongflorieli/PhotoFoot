@@ -1,7 +1,9 @@
 package florie.photofoot.model;
 
-public class UserInfo {
+public class UserInfo{
     public UserInfo() {
+        this.IsCur = false;
+        this.Activity = new Activity();
     }
 
     public UserInfo(UserInfo ui) {
@@ -9,6 +11,7 @@ public class UserInfo {
         this.FirstName = ui.getFirstName();
         this.LastName = ui.getLastName();
         this.Password = ui.getPassword();
+        this.IsCur = false;
     }
 
     private String Username;
@@ -19,6 +22,24 @@ public class UserInfo {
     private String Description;
     private String Occupation;
     private Integer Id;
+    private boolean IsCur;
+    private Activity Activity;
+
+    public void setCur(boolean cur) {
+        IsCur = cur;
+    }
+
+    public void setActivity(florie.photofoot.model.Activity activity) {
+        Activity = activity;
+    }
+
+    public boolean getIsCur() {
+        return IsCur;
+    }
+
+    public florie.photofoot.model.Activity getActivity() {
+        return Activity;
+    }
 
     public void setLocation(String location) {
         Location = location;
@@ -67,5 +88,13 @@ public class UserInfo {
     }
     public String getLastName() {
         return LastName;
+    }
+
+    @Override
+    public boolean equals(Object ui){
+        if(((UserInfo)ui).getUsername().equals(this.getUsername())){
+            return true;
+        }
+        return false;
     }
 }

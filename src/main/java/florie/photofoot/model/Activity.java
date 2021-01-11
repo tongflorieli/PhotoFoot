@@ -3,6 +3,10 @@ package florie.photofoot.model;
 import java.sql.Timestamp;
 
 public class Activity {
+    public Activity() {
+        Type = "";
+    }
+
     private Integer Id;
     private String Username;
     private Timestamp Modified;
