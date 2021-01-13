@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	$("#divul").load("/PhotoFoot/UAList");
 	var updateULinterval = setInterval(function() {
-        $("#divul").load("/PhotoFoot/UAList");
+        UpdateUserList();
     }, 3000);
 
     $(document).on("click", "#choosefile", function () {
@@ -45,6 +45,45 @@ $(document).ready(function () {
     });
 });
 
+function UpdateUserList(){
+	$.get("/PhotoFoot/UpdateUserList", function(data) {
+		for (var i=0; i<data.length; i++) {
+			$.each(data, function (index, ulavm) {
+	            if($("#icon_"+ulavm.Name).data("atype") != ulavm.Value){
+		            $("#icon_"+ulavm.Name).data("atype", ulavm.Value);
+		            switch(ulavm.Value){
+		                case 'User Registered':
+		                    $("#divul").load("/PhotoFoot/UAList");
+		                    break;
+		                case 'Login':
+		                    $("#icon_"+ulavm.Name).attr('src','/image/login.png');
+		                    $('#adetail_'+ulavm.Name).html('logged in');
+		                    break;
+		                case 'Logout':
+		                    $("#icon_"+ulavm.Name).attr('src','/image/logout.png');
+		                    $('#adetail_'+ulavm.Name).html('logged out');
+		                    break;
+		                case 'Photo Upload':
+		                    $("#icon_"+ulavm.Name).attr('src','/PhotoFoot/GetImage?Id='+ulavm.Related_Id);
+		                    $('#adetail_'+ulavm.Name).html('posted a photo');
+		                    break;
+		                case 'Comment':
+		                    $("#icon_"+ulavm.Name).attr('src','/image/comment.png');
+		                    $('#adetail_'+ulavm.Name).html('added a comment');
+		                    break;
+	                    default:
+	                        $("#icon_"+ulavm.Name).attr('src','/image/no_activity.png');
+	                        $('#adetail_'+ulavm.Name).html('no recent activity');
+	                        break;
+		            }
+	            }
+            });
+        }
+	}).fail(function(){
+		alert("error when updating user list.");
+	});
+}
+
 function AddComment(thisele){
 	var comment = thisele.val();
 	var photoid = thisele.data("photoid");
@@ -64,7 +103,7 @@ function AddComment(thisele){
             if(data.Name == "success"){
 				thisele.val("");
 				$("#comments_"+thisele.data("photoid")).load("/PhotoFoot/Comments?photoid="+thisele.data("photoid"));
-				$("#divul").load("/PhotoFoot/UAList");
+				UpdateUserList();
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -87,7 +126,7 @@ function UploadImg(){
         cache: false,
         success: function(data) {
             $("#upload").prop("disable", false);
-            $("#divul").load("/PhotoFoot/UAList");
+            UpdateUserList();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("Error(s) encountered while uploading image." + thrownError.toString());

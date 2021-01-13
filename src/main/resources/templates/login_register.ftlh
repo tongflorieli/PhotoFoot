@@ -6,6 +6,7 @@
     <link href="/css/login_register.css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/login_register.js"></script>
+    <link rel="icon" type="image/png" href="/image/comment.png" />
 </head>
 <body>
     <#if error??>

@@ -59,8 +59,8 @@ function RegisterUser(){
 			            },
 			            type: "post",
 			            cache: false,
-			            success: function(data) {
-			                if(data.Name == "success"){
+			            success: function(adduserdata) {
+			                if(adduserdata.Name == "success"){
 			                    clearFields();
 								$("#msg").html("<p class='green'>User Registered!</p>");
 			                    setTimeout(function () {

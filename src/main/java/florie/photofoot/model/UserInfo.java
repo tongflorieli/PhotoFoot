@@ -25,6 +25,14 @@ public class UserInfo{
     private boolean IsCur;
     private Activity Activity;
 
+    public Integer getId() {
+        return Id;
+    }
+
+    public boolean isCur() {
+        return IsCur;
+    }
+
     public void setCur(boolean cur) {
         IsCur = cur;
     }

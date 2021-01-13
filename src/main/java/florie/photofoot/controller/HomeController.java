@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -122,6 +123,36 @@ public class HomeController {
         mv.addObject("lua", lua);
         mv.addObject("curua",curua);
         return mv;
+    }
+
+    @GetMapping("/UpdateUserList")
+    @ResponseBody
+    public List<UserListActivityViewModal> UpdateUserList(){
+        List<UserListActivityViewModal> ret = new ArrayList<UserListActivityViewModal>();
+        try{
+            List<UserInfo> lua = uiMapper.getAll();
+            lua.forEach((ui)->{
+                UserListActivityViewModal thisulavm = new UserListActivityViewModal();
+                thisulavm.Name= ui.getId().toString();
+                Activity activity = aMapper.getRecentActivityByUsername(ui.getUsername());
+                if(activity == null){
+                    thisulavm.Value = "Default";
+                }
+                if(activity != null){
+                    thisulavm.Value = activity.getType();
+                    if(activity.getType().equals("Photo Upload")){
+                        thisulavm.Related_Id = activity.getRelated_Id();
+                    }
+                }
+                ret.add(thisulavm);
+            });
+        }catch (Exception ex){
+            UserListActivityViewModal fail = new UserListActivityViewModal();
+            fail.Name = "fail";
+            fail.Value = ex.getMessage() + "<br />" + ex.getStackTrace();
+            ret.add(fail);
+        }
+        return ret;
     }
 
     @GetMapping("/GetImage")
