@@ -6,6 +6,7 @@
     <link href="/css/home.css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/home.js"></script>
+    <link rel="icon" type="image/png" href="/image/comment.png" />
 </head>
 <body>
 	<div id="header">

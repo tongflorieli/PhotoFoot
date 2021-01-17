@@ -43,7 +43,46 @@ $(document).ready(function () {
 			AddComment($(this));
 		}
     });
+
+    $(document).on("click", ".imgstar", function () {
+        ToggleFav($(this));
+    });
 });
+
+function ToggleFav(thiselem){
+	var fav = thiselem.data("fav");
+	var photoid = thiselem.data("photoid");
+	//toggle
+	if(fav == 1){
+		fav = 0;
+	}else{
+		fav = 1;
+	}
+	$.ajax({
+            url: '/PhotoFoot/UpdateFav',
+            data: {
+                'fav': fav,
+                "photoid": photoid
+            },
+            type: "post",
+            cache: false,
+            success: function(data) {
+                if(data.Name == "success"){
+    				thiselem.data("fav", fav);
+    				if(fav == 1){
+    				    thiselem.attr("src","/Image/yellow star.png");
+    				}
+    				if(fav == 0){
+                        thiselem.attr("src","/Image/grey star.png");
+                    }
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Error(s) encountered while updating fav." + thrownError.toString());
+                isvalid = false;
+            }
+        });
+}
 
 function UpdateUserList(){
 	$.get("/PhotoFoot/UpdateUserList", function(data) {

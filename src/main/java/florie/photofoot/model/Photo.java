@@ -14,20 +14,16 @@ public class Photo {
     private Boolean IsFav;
     private UserInfo UserInfo;
 
-    public void setId(Integer id) {
-        Id = id;
-    }
-
-    public void setFav(Boolean fav) {
-        IsFav = fav;
+    public Boolean getFav() {
+        return IsFav;
     }
 
     public void setUserInfo(florie.photofoot.model.UserInfo userInfo) {
         UserInfo = userInfo;
     }
 
-    public Boolean getFav() {
-        return IsFav;
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public florie.photofoot.model.UserInfo getUserInfo() {

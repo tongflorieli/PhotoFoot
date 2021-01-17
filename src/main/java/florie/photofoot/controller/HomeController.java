@@ -1,9 +1,6 @@
 package florie.photofoot.controller;
 
-import florie.photofoot.mapper.ActivityMapper;
-import florie.photofoot.mapper.CommentMapper;
-import florie.photofoot.mapper.PhotoMapper;
-import florie.photofoot.mapper.UserInfoMapper;
+import florie.photofoot.mapper.*;
 import florie.photofoot.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +17,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/PhotoFoot")
 public class HomeController {
-    public HomeController(PhotoMapper photoMapper, CommentMapper commentmapper, UserInfoMapper uiMapper, ActivityMapper aMapper) {
+    public HomeController(PhotoMapper photoMapper, CommentMapper commentmapper, UserInfoMapper uiMapper, ActivityMapper aMapper, FavMapper favMapper) {
         this.commentMapper = commentmapper;
         this.photoMapper = photoMapper;
         this.uiMapper = uiMapper;
         this.aMapper = aMapper;
+        this.favMapper = favMapper;
     }
     private PhotoMapper photoMapper;
     private CommentMapper commentMapper;
     private UserInfoMapper uiMapper;
     private ActivityMapper aMapper;
+    private FavMapper favMapper;
 
     @RequestMapping("/Home")
     public ModelAndView Home() {
@@ -70,6 +69,12 @@ public class HomeController {
             username = principal.getName();
         }
         List<Photo> lphotos = photoMapper.selectByUsernameWithoutData(username);
+        lphotos.forEach((photo)->{
+            int favcnt = favMapper.countByUsernameAndPhotoId(principal.getName(), photo.getId());
+            if(favcnt >= 1){
+                photo.setIsFav(true);
+            }
+        });
         ModelAndView mv=new ModelAndView("photos");
         mv.addObject("lphotos", lphotos);
         return mv;
@@ -186,6 +191,26 @@ public class HomeController {
             activity.setType("Comment");
             activity.setRelated_Id(objcomment.getId());
             aMapper.insert(activity);
+            ret.setName("success");
+        }catch (Exception ex){
+            ret.setName("fail");
+            ret.setValue(ex.getMessage() + "<br />" + ex.getStackTrace());
+        }
+        return ret;
+    }
+
+    @PostMapping(path = "/UpdateFav")
+    @ResponseBody
+    public NameValuePair UpdateFav(int fav, int photoid, Principal principal){
+        NameValuePair ret = new NameValuePair();
+        try{
+            String username = principal.getName();
+            if(fav == 1){
+                favMapper.insert(username, photoid);
+            }
+            if(fav == 0){
+                favMapper.delete(username, photoid);
+            }
             ret.setName("success");
         }catch (Exception ex){
             ret.setName("fail");
