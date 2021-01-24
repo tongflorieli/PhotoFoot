@@ -47,11 +47,12 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#btnviewphotos", function () {
+        var fullname = $(this).data("userfullname");
         $("#divcontent").load("/PhotoFoot/Photos?username="+$(this).data("username"), function(){
             $(".comments").each(function(){
                 $(this).load("/PhotoFoot/Comments?photoid="+$(this).data("photoid"));
             });
-            $("#headertxtright").text($("#btnviewphotos").data("userfullname")+"'s Photos");
+            $("#headertxtright").text(fullname+"'s Photos");
         });
     });
 
