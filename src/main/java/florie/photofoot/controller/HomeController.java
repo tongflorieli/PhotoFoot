@@ -107,6 +107,22 @@ public class HomeController {
         return mv;
     }
 
+    @RequestMapping("/Favorites")
+    public ModelAndView Favorites(Principal principal){
+        List<Fav> lfav = favMapper.getMyFavs(principal.getName());
+        ModelAndView mv=new ModelAndView("fav");
+        mv.addObject("lfav", lfav);
+        return mv;
+    }
+
+    @RequestMapping("/FavPopup")
+    public ModelAndView FavPopup(int photoid){
+        Photo photo = photoMapper.getPhotoById(photoid);
+        ModelAndView mv=new ModelAndView("favpopup");
+        mv.addObject("photo", photo);
+        return mv;
+    }
+
     @RequestMapping("/UAList")
     public ModelAndView UAList(Principal principal){
         List<UserInfo> lua = uiMapper.getAll();

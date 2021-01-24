@@ -17,4 +17,7 @@ public interface FavMapper {
 
     @Select("SELECT COUNT(*) from Fav WHERE UserName = #{UserName} AND PhotoId = #{PhotoId}")
     int countByUsernameAndPhotoId(String UserName, int PhotoId);
+
+    @Select("SELECT * FROM Fav where UserName = #{username}")
+    List<Fav> getMyFavs(String username);
 }

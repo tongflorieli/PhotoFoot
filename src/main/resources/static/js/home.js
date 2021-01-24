@@ -16,6 +16,26 @@ $(document).ready(function () {
         $("#divcontent").load("/PhotoFoot/Activities");
     });
 
+    $(document).on("click", "#btnfav", function () {
+        $("#divcontent").load("/PhotoFoot/Favorites");
+    });
+
+    $(document).on("click", ".divfavimg", function () {
+        $("#favpopupcontent").load("/PhotoFoot/FavPopup?photoid="+$(this).data("photoid"),function(){
+            $("#favpopup").show();
+        });
+    });
+
+    $(document).on("click", ".unfav", function () {
+        DeleteFav($(this).data("photoid"));
+    });
+
+    $(window).click(function(event){
+		if (event.target == document.getElementById("favpopup")) {
+            $("#favpopup").hide();
+		}
+    });
+
     $(document).on("click", "#myprofile", function () {
         $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true", function(){
             $(".comments").each(function(){
@@ -48,6 +68,27 @@ $(document).ready(function () {
         ToggleFav($(this));
     });
 });
+
+function DeleteFav(photoid){
+	$.ajax({
+        url: '/PhotoFoot/UpdateFav',
+        data: {
+            'fav': 0,
+            "photoid": photoid
+        },
+        type: "post",
+        cache: false,
+        success: function(data) {
+            if(data.Name == "success"){
+                $("#divcontent").load("/PhotoFoot/Favorites");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("Error(s) encountered while deleting fav." + thrownError.toString());
+            isvalid = false;
+        }
+    });
+}
 
 function ToggleFav(thiselem){
 	var fav = thiselem.data("fav");
