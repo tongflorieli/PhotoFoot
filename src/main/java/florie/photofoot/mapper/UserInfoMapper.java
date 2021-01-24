@@ -10,6 +10,9 @@ public interface UserInfoMapper {
     @Select("SELECT TOP 1 * from UserInfo WHERE Username = #{username}")
     UserInfo findByUsername(String username);
 
+    @Select("SELECT TOP 1 * from UserInfo WHERE Id = #{id}")
+    UserInfo findById(int id);
+
     @Select("SELECT * from UserInfo")
     List<UserInfo> getAll();
 

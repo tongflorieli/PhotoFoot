@@ -54,7 +54,7 @@ input[type="text"]
 	padding:15px;
 }
 
-#header button{
+.redbutton{
 	background-color: #E10600FF;
 	color:white;
 	padding:7px;
@@ -144,6 +144,7 @@ input[type="text"]
 .ulname{
 	padding:2px;
     font-weight: 550;
+    cursor:pointer;
 }
 
 #curusername{
@@ -250,4 +251,36 @@ input[type="text"]
 	overflow: auto;
 	background-color: rgb(0,0,0);
 	background-color: rgba(0,0,0,0.4);
+}
+
+.udicon{
+	float:left;
+	height:25px;
+	width:25px;
+    margin-right: 10px
+}
+
+.udline{
+	text-align:left;
+	height: 25px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.headertxt{
+	color:white;
+    font-size: 30px;
+    width: 500px;
+    vertical-align: middle;
+    height: 38px;
+}
+
+#headertxtleft{
+	float:left;
+    text-align: left;
+}
+
+#headertxtright{
+	float:right;
+    text-align: right;
 }

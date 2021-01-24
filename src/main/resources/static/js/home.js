@@ -13,11 +13,15 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#btnactivities, #refreshactvity", function () {
-        $("#divcontent").load("/PhotoFoot/Activities");
+        $("#divcontent").load("/PhotoFoot/Activities", function(){
+           $("#headertxtright").text("Recent Activities");
+       });
     });
 
     $(document).on("click", "#btnfav", function () {
-        $("#divcontent").load("/PhotoFoot/Favorites");
+        $("#divcontent").load("/PhotoFoot/Favorites", function(){
+            $("#headertxtright").text("My Favorites");
+        });
     });
 
     $(document).on("click", ".divfavimg", function () {
@@ -36,11 +40,18 @@ $(document).ready(function () {
 		}
     });
 
-    $(document).on("click", "#myprofile", function () {
-        $("#divcontent").load("/PhotoFoot/Photos?ismyphotos=true", function(){
+    $(document).on("click", "#profile", function () {
+        $("#divcontent").load("/PhotoFoot/UserDetails?id="+$(this).data("uiid"), function(){
+            $("#headertxtright").text("My Profile");
+        });
+    });
+
+    $(document).on("click", "#btnviewphotos", function () {
+        $("#divcontent").load("/PhotoFoot/Photos?username="+$(this).data("username"), function(){
             $(".comments").each(function(){
                 $(this).load("/PhotoFoot/Comments?photoid="+$(this).data("photoid"));
             });
+            $("#headertxtright").text($("#btnviewphotos").data("userfullname")+"'s Photos");
         });
     });
 
@@ -66,6 +77,13 @@ $(document).ready(function () {
 
     $(document).on("click", ".imgstar", function () {
         ToggleFav($(this));
+    });
+
+    $(document).on("click", ".ulname", function () {
+        var fullname = $(this).data("userfullname");
+        $("#divcontent").load("/PhotoFoot/UserDetails?id="+$(this).data("uiid"),function(){
+            $("#headertxtright").text(fullname+"'s Profile");
+        });
     });
 });
 

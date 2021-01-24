@@ -1,7 +1,7 @@
 <div id="divcuruser">
 	<div id="curusername">${curua.getFirstName()?upper_case} ${curua.getLastName()?upper_case}</div>
 	<div id="divmybuttons">
-		<button id="profile" class="bluebutton">PROFILE</button>
+		<button id="profile" class="bluebutton" data-uiid="${curua.getId()}">PROFILE</button>
 		<button id="logout" class="bluebutton">LOGOUT</button>
 	</div>
 	<div>
@@ -40,7 +40,7 @@
 					<img id="icon_${ui.getId()}" data-atype="User Registered" class="ulicon" src="/image/register.png" alt="register" title="register">
 				</div>
 				<div class="ulright">
-					<div class="ulname">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
+					<div class="ulname" data-uiid="${ui.getId()}" data-userfullname="${ui.getFirstName()} ${ui.getLastName()}">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
 					<div id="adetail_${ui.getId()}" class="uldetails">registered as a user</div>
 				</div>
 				<#break>
@@ -49,7 +49,7 @@
 					<img id="icon_${ui.getId()}" data-atype="Login" class="ulicon" src="/image/login.png">
 				</div>
 				<div class="ulright">
-					<div class="ulname">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
+					<div class="ulname" data-uiid="${ui.getId()}" data-userfullname="${ui.getFirstName()} ${ui.getLastName()}">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
 					<div id="adetail_${ui.getId()}" class="uldetails">logged in</div>
 				</div>
 				<#break>
@@ -58,7 +58,7 @@
                     <img id="icon_${ui.getId()}" data-atype="Logout" class="ulicon" src="/image/logout.png">
                 </div>
                 <div class="ulright">
-                    <div class="ulname">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
+                    <div class="ulname" data-uiid="${ui.getId()}" data-userfullname="${ui.getFirstName()} ${ui.getLastName()}">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
                     <div id="adetail_${ui.getId()}" class="uldetails">logged out</div>
                 </div>
                 <#break>
@@ -67,7 +67,7 @@
                     <img id="icon_${ui.getId()}" data-atype="Photo Upload" class="ulicon" src="/PhotoFoot/GetImage?Id=${ui.getActivity().getRelated_Id()}">
                 </div>
                 <div class="ulright">
-                    <div class="ulname">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
+                    <div class="ulname" data-uiid="${ui.getId()}" data-userfullname="${ui.getFirstName()} ${ui.getLastName()}">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
                     <div id="adetail_${ui.getId()}" class="uldetails">posted a photo</div>
                 </div>
                 <#break>
@@ -76,7 +76,7 @@
                     <img id="icon_${ui.getId()}" data-atype="Comment" class="ulicon" src="/image/comment.png">
                 </div>
                 <div class="ulright">
-                    <div class="ulname">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
+                    <div class="ulname" data-uiid="${ui.getId()}" data-userfullname="${ui.getFirstName()} ${ui.getLastName()}">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
                     <div id="adetail_${ui.getId()}" class="uldetails">added a comment</div>
                 </div>
                 <#break>
@@ -85,7 +85,7 @@
                     <img id="icon_${ui.getId()}" data-atype="Default" class="ulicon" src="/image/no_activity.png">
                 </div>
                 <div class="ulright">
-                    <div class="ulname">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
+                    <div class="ulname" data-uiid="${ui.getId()}" data-userfullname="${ui.getFirstName()} ${ui.getLastName()}">${ui.getFirstName()?upper_case} ${ui.getLastName()?upper_case}</div>
                     <div id="adetail_${ui.getId()}" class="uldetails">no recent activity</div>
                 </div>
                 <#break>

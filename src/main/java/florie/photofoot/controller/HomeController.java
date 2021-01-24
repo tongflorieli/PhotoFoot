@@ -31,8 +31,10 @@ public class HomeController {
     private FavMapper favMapper;
 
     @RequestMapping("/Home")
-    public ModelAndView Home() {
+    public ModelAndView Home(Principal principal) {
+        UserInfo myui = uiMapper.findByUsername(principal.getName());
         ModelAndView mv=new ModelAndView("home");
+        mv.addObject("myui", myui);
         return mv;
     }
 
@@ -64,10 +66,7 @@ public class HomeController {
     }
 
     @RequestMapping("/Photos")
-    public ModelAndView Photos(Boolean ismyphotos, String username, Principal principal) {
-        if(ismyphotos){
-            username = principal.getName();
-        }
+    public ModelAndView Photos(String username, Principal principal) {
         List<Photo> lphotos = photoMapper.selectByUsernameWithoutData(username);
         lphotos.forEach((photo)->{
             int favcnt = favMapper.countByUsernameAndPhotoId(principal.getName(), photo.getId());
@@ -112,6 +111,14 @@ public class HomeController {
         List<Fav> lfav = favMapper.getMyFavs(principal.getName());
         ModelAndView mv=new ModelAndView("fav");
         mv.addObject("lfav", lfav);
+        return mv;
+    }
+
+    @RequestMapping("/UserDetails")
+    public ModelAndView UserDetails(int id){
+        UserInfo ui = uiMapper.findById(id);
+        ModelAndView mv=new ModelAndView("userdetails");
+        mv.addObject("ui", ui);
         return mv;
     }
 
