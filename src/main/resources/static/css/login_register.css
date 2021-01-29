@@ -2,8 +2,7 @@ body {
     margin: 0 auto;
     padding: 0;
     font-family: Arial, "Arial Unicode MS", System;
-    background-color: #BDF;
-    font-size: 32px;
+    font-size: 18px;
     text-align: center;
 }
 
@@ -26,6 +25,66 @@ body {
     margin: 5px 0px 0px;
 }
 
+#header{
+	background-color: #00239CFF;
+	padding:15px;
+}
+
+#headertxt{
+	color:white;
+    font-size: 30px;
+    vertical-align: middle;
+    height: 38px;
+}
+
+.field{
+    width: 100%;
+    height: 70px;
+}
+
+.btnfield{
+     width: 100%;
+     height: 70px;
+ }
+
 .green {
     color: #66CC33;
+}
+
+body label {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    color: #808080;
+    float: left;
+    transform: translate(0, 15px);
+    text-align:left;
+}
+
+.field input{
+	width: 350px;
+    height: 50px;
+    font-size: 20px;
+    background-color: white;
+    border-style: none none solid none;
+    border-width: 1px;
+    border-color: #bbb;
+    float: right;
+}
+
+#content {
+    margin: 0 auto;
+    padding: 30px 100px 30px 100px;
+    width: 600px;
+    background-color: #fafafa;
+}
+
+.redbutton{
+	background-color: #E10600FF;
+	color:white;
+	padding:7px;
+	font-size:18px;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
 }
